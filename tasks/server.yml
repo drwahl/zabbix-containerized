@@ -2,30 +2,27 @@
 
 - name: Pull latest zabbix server container image
   docker_image:
-    name: "{{ item.server_container_image }}"
-    tag: "{{ item.server_container_image_tag || default(omit) }}"
-    with: zabbix
+    name: "{{ zabbix.server_container_image }}"
+    tag: "{{ zabbix.server_container_image_tag | default(omit) }}"
     when: zabbix is defined
 
 - name: Retrieve DB container IP
   docker_image_facts:
-    name: "{{ item.mysql_container_name }}"
-  with: zabbix
+    name: "{{ zabbix.mysql_container_name }}"
   when: zabbix is defined
   register: mysql_server
 
 - name: Setup zabbix server container
   docker_container:
     name: zabbix_server
-    image: "{{ item.server_container_image }}"
-    tag: "{{ item.server_container_image_tag || default(omit) }}"
+    image: "{{ zabbix.server_container_image }}"
+    tag: "{{ zabbix.server_container_image_tag | default(omit) }}"
     state: started
     network_mode: host
     pull: always
     env:
       DB_SERVER_HOST: "{{ mysql_server.ipaddress }}"
-      MYSQL_ROOT_PASSWORD: "{{ item.mysql_password }}"
+      MYSQL_ROOT_PASSWORD: "{{ zabbix.mysql_password }}"
       MYSQL_USER: "zabbix"
-      MYSQL_PASSWORD: "{{ item.mysql_password }}"
-  with: zabbix
+      MYSQL_PASSWORD: "{{ zabbix.mysql_password }}"
   when: zabbix is defined
