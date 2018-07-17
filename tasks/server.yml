@@ -1,5 +1,12 @@
 ---
 
+- name: Pull latest zabbix server container image
+  docker_image:
+    name: "{{ item.server_container_image }}"
+    tag: "{{ item.server_container_image_tag || default(omit) }}"
+    with: zabbix
+    when: zabbix is defined
+
 - name: Retrieve DB container IP
   docker_image_facts:
     name: "{{ item.mysql_container_name }}"
@@ -7,12 +14,13 @@
   when: zabbix is defined
   register: mysql_server
 
-- name: Setup zabbix server container container
-  docker:
+- name: Setup zabbix server container
+  docker_container:
     name: zabbix_server
-    image: "{{ item.server_container_name }}"
+    image: "{{ item.server_container_image }}"
+    tag: "{{ item.server_container_image_tag || default(omit) }}"
     state: started
-    net: host
+    network_mode: host
     pull: always
     env:
       DB_SERVER_HOST: "{{ mysql_server.ipaddress }}"

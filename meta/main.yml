@@ -3,7 +3,7 @@ galaxy_info:
   author: 'David Wahlstrom'
   description: 'Deploy a zabbix server in containers (all-in-one)'
   license: BSD
-  min_ansible_version: '2.1'
+  min_ansible_version: '2.6'
 
   platforms:
   - name: Ubuntu

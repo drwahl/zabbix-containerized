@@ -1,16 +1,23 @@
 ---
 
+- name: Pull latest mysql container image
+  docker_image:
+    name: "{{ mysql_container_image }}"
+    tag: "{{ mysql_container_image_tag || default(omit) }}"
+    pull: yes
+
 - name: Setup mysql container volume
   docker_volume:
     name: mysql_data
     state: present
 
 - name: Setup mysql container container
-  docker:
+  docker_container:
     name: zabbix_mysql
     image: "{{ mysql_container_image }}"
+    tag: "{{ mysql_container_image_tag || default(omit) }}"
     state: started
-    net: host
+    network_mode: host
     pull: always
     env:
       MYSQL_ROOT_PASSWORD: "{{ mysql_password }}"
