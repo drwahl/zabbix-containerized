@@ -16,8 +16,7 @@
 - name: Setup mysql container container
   docker_container:
     name: zabbix_mysql
-    image: "{{ zabbix.mysql_container_image }}"
-    tag: "{{ zabbix.mysql_container_image_tag | default(omit) }}"
+    image: "{{ zabbix.mysql_container_image }}:{{ zabbix.mysql_container_image_tag | default('latest') }}"
     state: started
     network_mode: host
     env:

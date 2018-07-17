@@ -15,8 +15,7 @@
 - name: Setup zabbix server container
   docker_container:
     name: zabbix_server
-    image: "{{ zabbix.server_container_image }}"
-    tag: "{{ zabbix.server_container_image_tag | default(omit) }}"
+    image: "{{ zabbix.server_container_image }}:{{ zabbix.server_container_image_tag | default('latest') }}"
     state: started
     network_mode: host
     env:
