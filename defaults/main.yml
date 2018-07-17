@@ -1,7 +1,7 @@
 ---
 zabbix:
   mysql_container_name: "zabbix_mysql"
-  mysql_password: "20123bc5fe21de9ee5ca791bd6701a1f"
+  mysql_password: "changeitorcry"
   mysql_container_image: "mysql:5"
   server_container_name: "zabbix_server"
   server_container_image: "zabbix/zabbix-server-mysql"
