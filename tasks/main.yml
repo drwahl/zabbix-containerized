@@ -1,5 +1,4 @@
 ---
-
-include_task: mysql.yml
-include_task: server.yml
-include_task: web.yml
+  - include_task: mysql.yml
+  - include_task: server.yml
+  - include_task: web.yml
