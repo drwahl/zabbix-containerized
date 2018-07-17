@@ -20,7 +20,6 @@
     tag: "{{ zabbix.mysql_container_image_tag | default(omit) }}"
     state: started
     network_mode: host
-    pull: always
     env:
       MYSQL_ROOT_PASSWORD: "{{ zabbix.mysql_password }}"
     volumes:

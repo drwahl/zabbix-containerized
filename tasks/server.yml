@@ -19,7 +19,6 @@
     tag: "{{ zabbix.server_container_image_tag | default(omit) }}"
     state: started
     network_mode: host
-    pull: always
     env:
       DB_SERVER_HOST: "{{ mysql_server.ipaddress }}"
       MYSQL_ROOT_PASSWORD: "{{ zabbix.mysql_password }}"
