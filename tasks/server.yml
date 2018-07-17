@@ -1,0 +1,23 @@
+---
+
+- name: Retrieve DB container IP
+  docker_image_facts:
+    name: "{{ item.mysql_container_name }}"
+  with: zabbix
+  when: zabbix is defined
+  register: mysql_server
+
+- name: Setup zabbix server container container
+  docker:
+    name: zabbix_server
+    image: "{{ item.server_container_name }}"
+    state: started
+    net: host
+    pull: always
+    env:
+      DB_SERVER_HOST: "{{ mysql_server.ipaddress }}"
+      MYSQL_ROOT_PASSWORD: "{{ item.mysql_password }}"
+      MYSQL_USER: "zabbix"
+      MYSQL_PASSWORD: "{{ item.mysql_password }}"
+  with: zabbix
+  when: zabbix is defined
