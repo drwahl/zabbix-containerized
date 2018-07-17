@@ -7,18 +7,6 @@
     pull: yes
   when: zabbix is defined
 
-- name: Retrieve DB container IP
-  docker_image_facts:
-    name: "{{ zabbix.mysql_container_name }}"
-  when: zabbix is defined
-  register: mysql_server
-
-- name: Retrieve server container IP
-  docker_image_facts:
-    name: "{{ zabbix.server_container_name }}"
-  when: zabbix is defined
-  register: zabbix_server
-
 - name: Setup zabbix web container container
   docker_container:
     name: zabbix_web
@@ -27,8 +15,8 @@
     network_mode: host
     env:
       MYSQL_PASSWORD: "{{ zabbix.mysql_password }}"
-      ZBX_SERVER_HOST: "{{ zabbix_server.ipaddress }}"
+      ZBX_SERVER_HOST: "{{ ansible_default_ipv4.address }}"
       PHP_TZ: "{{ zabbix.PHP_TZ }}"
-      DB_SERVER_HOST: "{{ mysql_server.ipaddress }}"
+      DB_SERVER_HOST: "{{ ansible_default_ipv4.address }}"
       MYSQL_USER: zabbix
   when: zabbix is defined
