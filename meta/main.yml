@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: 'David Wahlstrom'
+  description: 'Deploy a zabbix server in containers (all-in-one)'
+  license: BSD
+  min_ansible_version: '2.1'
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+    - xenial
+
+  categories:
+  - system
+
+dependencies: []
+allow_duplicates: yes 
