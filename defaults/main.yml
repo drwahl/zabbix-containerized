@@ -7,3 +7,4 @@ zabbix:
   server_container_image: "zabbix/zabbix-server-mysql"
   web_container_image: "zabbix/zabbix-web-nginx-mysql"
   web_container_name: "zabbix_web"
+  PHP_TX: 'UTC'
