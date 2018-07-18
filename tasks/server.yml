@@ -22,7 +22,7 @@
     group: root
     mode: 0755
     state: directory
-  with:
+  loop:
     - alertscripts
     - externalscripts
     - modules
