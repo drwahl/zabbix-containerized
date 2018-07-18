@@ -3,7 +3,8 @@ An all-in-one zabbix server deployment using mysql backend and in docker contain
 
 Users can configure the deployment by providing the following variable(s) in all.yml:
 
-  zabbix:
+```
+zabbix:
     mysql_container_name: "zabbix_mysql"
     mysql_password: "changeitorcry"
     mysql_container_image: "mysql"
@@ -15,3 +16,4 @@ Users can configure the deployment by providing the following variable(s) in all
     web_container_image_tag: "ubuntu-3.4.11"
     web_container_name: "zabbix_web"
     PHP_TZ: 'UTC'
+```
