@@ -40,11 +40,8 @@
     image: "{{ zabbix.server_container_image }}:{{ zabbix.server_container_image_tag | default('latest') }}"
     state: started
     network_mode: host
-    env:
-      DB_SERVER_HOST: "{{ ansible_default_ipv4.address }}"
-      MYSQL_ROOT_PASSWORD: "{{ zabbix.mysql_password }}"
-      MYSQL_USER: "zabbix"
-      MYSQL_PASSWORD: "{{ zabbix.mysql_password }}"
+    env: "{{ zabbix.server_envs }}"
+    restart_policy: "{{ zabbix.server_restart_policy | default(omit) }}"
     volumes:
       - /etc/zabbix/alertscripts:/usr/lib/zabbix/alertscripts
       - /etc/zabbix/externalscripts:/usr/lib/zabbix/externalscripts

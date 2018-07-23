@@ -19,6 +19,7 @@
     image: "{{ zabbix.mysql_container_image }}:{{ zabbix.mysql_container_image_tag | default('latest') }}"
     state: started
     network_mode: host
+    restart_policy: "{{ zabbix.mysql_restart_policy | default(omit) }}"
     env:
       MYSQL_ROOT_PASSWORD: "{{ zabbix.mysql_password }}"
     volumes:

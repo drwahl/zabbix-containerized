@@ -13,10 +13,6 @@
     image: "{{ zabbix.web_container_image }}:{{ zabbix.web_container_image_tag | default('latest') }}"
     state: started
     network_mode: host
-    env:
-      MYSQL_PASSWORD: "{{ zabbix.mysql_password }}"
-      ZBX_SERVER_HOST: "{{ ansible_default_ipv4.address }}"
-      PHP_TZ: "{{ zabbix.PHP_TZ }}"
-      DB_SERVER_HOST: "{{ ansible_default_ipv4.address }}"
-      MYSQL_USER: zabbix
+    restart_policy: "{{ zabbix.web_restart_policy | default(omit) }}"
+    env: "{{ zabbix.web_envs }}"
   when: zabbix is defined
