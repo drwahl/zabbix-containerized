@@ -21,7 +21,6 @@ zabbix:
   web_envs:
     MYSQL_PASSWORD: "{{ zabbix.mysql_password }}"
     ZBX_SERVER_HOST: "{{ ansible_default_ipv4.address }}"
-    PHP_TZ: "{{ zabbix.PHP_TZ }}"
     DB_SERVER_HOST: "{{ ansible_default_ipv4.address }}"
     MYSQL_USER: "zabbix"
     PHP_TZ: 'UTC'
