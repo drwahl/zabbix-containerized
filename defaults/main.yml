@@ -1,7 +1,8 @@
 ---
+zabbix_mysql_password: "changeitorcry"
 zabbix:
   mysql_container_name: "zabbix_mysql"
-  mysql_password: "changeitorcry"
+  mysql_password: "{{ zabbix_mysql_password }}"
   mysql_container_image: "mysql"
   mysql_container_image_tag: 5
   mysql_restart_policy: "on-failure"
@@ -11,15 +12,15 @@ zabbix:
   server_restart_policy: "on-failure"
   server_envs:
     DB_SERVER_HOST: "{{ ansible_default_ipv4.address }}"
-    MYSQL_ROOT_PASSWORD: "{{ zabbix.mysql_password }}"
+    MYSQL_ROOT_PASSWORD: "{{ zabbix_mysql_password }}"
     MYSQL_USER: "zabbix"
-    MYSQL_PASSWORD: "{{ zabbix.mysql_password }}"
+    MYSQL_PASSWORD: "{{ zabbix_mysql_password }}"
   web_container_image: "zabbix/zabbix-web-nginx-mysql"
   web_container_image_tag: "ubuntu-3.4.11"
   web_container_name: "zabbix_web"
   web_restart_policy: "on-failure"
   web_envs:
-    MYSQL_PASSWORD: "{{ zabbix.mysql_password }}"
+    MYSQL_PASSWORD: "{{ zabbix_mysql_password }}"
     ZBX_SERVER_HOST: "{{ ansible_default_ipv4.address }}"
     DB_SERVER_HOST: "{{ ansible_default_ipv4.address }}"
     MYSQL_USER: "zabbix"
