@@ -2,17 +2,17 @@
 
 - name: Pull latest zabbix web container image
   docker_image:
-    name: "{{ zabbix.web_container_image }}"
-    tag: "{{ zabbix.web_container_image_tag | default(omit) }}"
+    name: "{{ zabbix.web.container_image }}"
+    tag: "{{ zabbix.web.container_image_tag | default(omit) }}"
     pull: yes
   when: zabbix is defined
 
 - name: Setup zabbix web container container
   docker_container:
-    name: zabbix_web
-    image: "{{ zabbix.web_container_image }}:{{ zabbix.web_container_image_tag | default('latest') }}"
+    name: "{{ zabbix.web.container_name }}"
+    image: "{{ zabbix.web.container_image }}:{{ zabbix.web.container_image_tag | default('latest') }}"
     state: started
     network_mode: host
-    restart_policy: "{{ zabbix.web_restart_policy | default(omit) }}"
-    env: "{{ zabbix.web_envs }}"
+    restart_policy: "{{ zabbix.web.restart_policy | default(omit) }}"
+    env: "{{ zabbix.web.envs }}"
   when: zabbix is defined

@@ -1,21 +1,21 @@
 ---
 
-- name: Pull latest zabbix server container image
+- name: Pull latest zabbix proxy container image
   docker_image:
-    name: "{{ zabbix.server.container_image }}"
-    tag: "{{ zabbix.server.container_image_tag | default(omit) }}"
+    name: "{{ zabbix.proxy.container_image }}"
+    tag: "{{ zabbix.proxy.container_image_tag | default(omit) }}"
     pull: yes
   when: zabbix is defined
 
-- name: Setup zabbix server container
+- name: Setup zabbix proxy container
   docker_container:
-    name: "{{ zabbix.server.container_name }}"
-    image: "{{ zabbix.server.container_image }}:{{ zabbix.server.container_image_tag | default('latest') }
+    name: "{{ zabbix.proxy.container_name }}"
+    image: "{{ zabbix.proxy.container_image }}:{{ zabbix.proxy.container_image_tag | default('latest') }
 }"
     state: started
     network_mode: host
-    env: "{{ zabbix.server.envs }}"
-    restart_policy: "{{ zabbix.server.restart_policy | default(omit) }}"
+    env: "{{ zabbix.proxy.envs }}"
+    restart_policy: "{{ zabbix.proxy.restart_policy | default(omit) }}"
     volumes:
       - /etc/zabbix/alertscripts:/usr/lib/zabbix/alertscripts
       - /etc/zabbix/externalscripts:/usr/lib/zabbix/externalscripts
