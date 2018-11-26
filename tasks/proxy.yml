@@ -1,5 +1,7 @@
 ---
 
+- include_tasks: server_proxy_common.yml
+
 - name: Pull latest zabbix proxy container image
   docker_image:
     name: "{{ zabbix.proxy.container_image }}"
@@ -10,8 +12,7 @@
 - name: Setup zabbix proxy container
   docker_container:
     name: "{{ zabbix.proxy.container_name }}"
-    image: "{{ zabbix.proxy.container_image }}:{{ zabbix.proxy.container_image_tag | default('latest') }
-}"
+    image: "{{ zabbix.proxy.container_image }}:{{ zabbix.proxy.container_image_tag | default('latest') }}"
     state: started
     network_mode: host
     env: "{{ zabbix.proxy.envs }}"
@@ -28,5 +29,3 @@
       - /etc/zabbix/snmptraps:/var/lib/zabbix/snmptraps
       - /etc/zabbix/mibs:/var/lib/zabbix/mibs
   when: zabbix is defined
-
-- include-tasks: server_proxy_common.yml

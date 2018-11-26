@@ -2,8 +2,8 @@
 
 - name: Pull latest mysql container image
   docker_image:
-    name: "{{ zabbix.mysql_container_image }}"
-    tag: "{{ zabbix.mysql_container_image_tag | default(omit) }}"
+    name: "{{ zabbix.mysql.container_image }}"
+    tag: "{{ zabbix.mysql.container_image_tag | default(omit) }}"
     pull: yes
   when: zabbix is defined
 
@@ -16,12 +16,12 @@
 - name: Setup mysql container container
   docker_container:
     name: zabbix_mysql
-    image: "{{ zabbix.mysql_container_image }}:{{ zabbix.mysql_container_image_tag | default('latest') }}"
+    image: "{{ zabbix.mysql.container_image }}:{{ zabbix.mysql.container_image_tag | default('latest') }}"
     state: started
     network_mode: host
-    restart_policy: "{{ zabbix.mysql_restart_policy | default(omit) }}"
+    restart_policy: "{{ zabbix.mysql.restart_policy | default(omit) }}"
     env:
-      MYSQL_ROOT_PASSWORD: "{{ zabbix.mysql_password }}"
+      MYSQL_ROOT_PASSWORD: "{{ zabbix.mysql.password }}"
     volumes:
       - "mysql_data:/var/lib/mysql"
   when: zabbix is defined

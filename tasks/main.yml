@@ -1,9 +1,9 @@
 ---
   - include_tasks: mysql.yml
-    when: zabbix.mysql.deploy is true
+    when: zabbix.mysql.deploy == true
   - include_tasks: server.yml
-    when: zabbix.server.deploy is true
+    when: zabbix.server.deploy == true
   - include_tasks: proxy.yml
-    when: zabbix.proxy.deploy is true
+    when: zabbix.proxy.deploy == true
   - include_tasks: web.yml
-    when: zabbix.web.deploy is true
+    when: zabbix.web.deploy == true

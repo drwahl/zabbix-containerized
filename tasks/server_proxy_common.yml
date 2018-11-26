@@ -1,12 +1,5 @@
 ---
 
-- name: Pull latest zabbix server/proxy container image
-  docker_image:
-    name: "{{ zabbix.server_container_image }}"
-    tag: "{{ zabbix.server_container_image_tag | default(omit) }}"
-    pull: yes
-  when: zabbix is defined
-
 - name: Create /etc/zabbix on host
   file:
     path: /etc/zabbix
@@ -33,24 +26,3 @@
     - ssl/ssl_ca
     - snmptraps
     - mibs
-
-- name: Setup zabbix server/proxy container
-  docker_container:
-    name: zabbix_server
-    image: "{{ zabbix.server_container_image }}:{{ zabbix.server_container_image_tag | default('latest') }}"
-    state: started
-    network_mode: host
-    env: "{{ zabbix.server_envs }}"
-    restart_policy: "{{ zabbix.server_restart_policy | default(omit) }}"
-    volumes:
-      - /etc/zabbix/alertscripts:/usr/lib/zabbix/alertscripts
-      - /etc/zabbix/externalscripts:/usr/lib/zabbix/externalscripts
-      - /etc/zabbix/modules:/var/lib/zabbix/modules
-      - /etc/zabbix/enc:/var/lib/zabbix/enc
-      - /etc/zabbix/ssh_keys:/var/lib/zabbix/ssh_keys
-      - /etc/zabbix/ssl/certs:/var/lib/zabbix/ssl/certs
-      - /etc/zabbix/ssl/keys:/var/lib/zabbix/ssl/keys
-      - /etc/zabbix/ssl/ssl_ca:/var/lib/zabbix/ssl/ssl_ca
-      - /etc/zabbix/snmptraps:/var/lib/zabbix/snmptraps
-      - /etc/zabbix/mibs:/var/lib/zabbix/mibs
-  when: zabbix is defined
