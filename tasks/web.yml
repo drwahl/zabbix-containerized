@@ -1,5 +1,7 @@
 ---
 
+- include_tasks: server_proxy_common.yml
+
 - name: Pull latest zabbix web container image
   docker_image:
     name: "{{ zabbix.web.container_image }}"
@@ -11,6 +13,8 @@
   docker_container:
     name: "{{ zabbix.web.container_name }}"
     image: "{{ zabbix.web.container_image }}:{{ zabbix.web.container_image_tag | default('latest') }}"
+    volumes:
+      - /etc/zabbix/webssl:/etc/ssl/nginx
     state: started
     network_mode: host
     restart_policy: "{{ zabbix.web.restart_policy | default(omit) }}"
