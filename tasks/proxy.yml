@@ -28,4 +28,5 @@
       - /etc/zabbix/ssl/ssl_ca:/var/lib/zabbix/ssl/ssl_ca
       - /etc/zabbix/snmptraps:/var/lib/zabbix/snmptraps
       - /etc/zabbix/mibs:/var/lib/zabbix/mibs
+      - /etc/zabbix/odbc.ini:/etc/odbc.ini
   when: zabbix is defined
