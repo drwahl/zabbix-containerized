@@ -16,7 +16,9 @@
     volumes:
       - /etc/zabbix/webssl:/etc/ssl/nginx
     state: started
-    network_mode: host
+    ports:
+        - "80:8080"
+        - "443:8443"
     restart_policy: "{{ zabbix.web.restart_policy | default(omit) }}"
     env: "{{ zabbix.web.envs }}"
   when: zabbix is defined
