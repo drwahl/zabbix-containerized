@@ -7,6 +7,7 @@
     name: "{{ zabbix.proxy.container_image }}"
     tag: "{{ zabbix.proxy.container_image_tag | default(omit) }}"
     pull: yes
+    force: yes
   when: zabbix is defined
 
 - name: Setup zabbix proxy container
