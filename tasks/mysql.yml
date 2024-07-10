@@ -4,7 +4,8 @@
   docker_image:
     name: "{{ zabbix.mysql.container_image }}"
     tag: "{{ zabbix.mysql.container_image_tag | default(omit) }}"
-    pull: yes
+    source: pull
+    force_source: true
   when: zabbix is defined
 
 - name: Setup mysql container volume

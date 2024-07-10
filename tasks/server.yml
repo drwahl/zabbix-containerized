@@ -7,7 +7,7 @@
     name: "{{ zabbix.server.container_image }}"
     tag: "{{ zabbix.server.container_image_tag | default(omit) }}"
     source: pull
-    force_source: yes
+    force_source: true
   when: zabbix is defined
 
 - name: Setup zabbix server container
